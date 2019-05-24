@@ -27,8 +27,6 @@ exports.datareader = function() {
 
         dataarray.push(x);
 
-
-
         if(c9 != 1){
             if(c1 == 0){
                 myPort.write(buf1);
@@ -147,6 +145,7 @@ exports.datareader = function() {
                 c7 = 0;
                 c8 = 0;
                 c9 = 1;
+
             }
         } else {
             c9 = 0;
