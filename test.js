@@ -57,6 +57,7 @@ exports.datareader = function() {
             } else {
 
                 //array manipulation for data refferal
+                console.log(dataarray);
                 dataarray.shift();
                 for (var i = 0; i < 6; i++) {
                         dataarray.pop();
