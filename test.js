@@ -123,6 +123,15 @@ exports.datareader = function() {
                 console.log(finish_time);
 
                 //BLOCK 2 DATA EXTRACTION
+                //datapoint starts scan on sub-block 14 of data
+                //point 15 is the control id
+                var point_data = [];
+
+                for(var i = 15; i < 120; i=i+4){
+                    if(dataarray[1][i] != 238){
+                        console.log(dataarray[1][i]);
+                    }
+                }
 
 
 
