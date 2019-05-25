@@ -16,7 +16,7 @@ exports.datareader = function() {
 
     var name = "yes";
 
-    var dataarray = [];
+    var dataarray = [1];
 
     function onOpen(){
         console.log('Open connections!');
@@ -55,7 +55,7 @@ exports.datareader = function() {
             } else {
 
                 //array manipulation for data refferal
-                console.log(dataarray);
+                dataarray.shift();
                 dataarray.shift();
                 for (var i = 0; i < 6; i++) {
                         dataarray.pop();
@@ -128,11 +128,29 @@ exports.datareader = function() {
 
                 for(var i = 15; i < 120; i=i+4){
                     if(dataarray[1][i] != 238){
-                        console.log(dataarray[1][i]);
+                        var obj = new Object();
+                        //control number
+                        obj.control_point = dataarray[1][i];
+                        //control time
+
+                        var control_time = 0;
+                        var count = i + 1;
+
+                        for (count; count < (i+3); count++){
+                            control_time = control_time + parseInt(dataarray[1][count]);
+                            if(count == i+1){
+                                control_time = control_time * 16 * 16;
+                            }
+                        }
+
+
+                        obj.control_timer = control_time;
+
+                        point_data.push(obj);
                     }
                 }
 
-
+                console.log(point_data);
 
                 dataarray = [];
                 myPort.write(buf9);
