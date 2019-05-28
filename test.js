@@ -160,6 +160,7 @@ exports.datareader = function() {
                   console.log("Database Connected");
                 //do stuff
                     collection.insertOne( { siid: siid, club: club, clear_time: clear_time, start_time: start_time, finish_time: finish_time, control_objs: point_data} );
+                    collection.insertOne( { test: "x"} );
                     console.log("Upload Complete");
                   client.close();
                 });
