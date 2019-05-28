@@ -2,7 +2,6 @@ exports.datareader = function() {
 
     var serialport = require('serialport');
     var legacy = require('legacy-encoding');
-
     const Readline = require('@serialport/parser-readline')
     var portName = 'COM3';
 
@@ -81,7 +80,7 @@ exports.datareader = function() {
                 console.log(club);
 
                 //find clear time
-                if(dataarray[0][15] == 1){
+                if(dataarray[0][15] == 1 || dataarray[0][15] == 3){
                     var clear_time = 0;
                     for (var i = 16; i < 18; i++){
                         clear_time = clear_time + parseInt(dataarray[0][i]);
@@ -151,6 +150,22 @@ exports.datareader = function() {
                 }
 
                 console.log(point_data);
+
+                //Database Upload
+                const MongoClient = require('mongodb').MongoClient;
+                const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
+                const client = new MongoClient(uri, { useNewUrlParser: true });
+                client.connect(err => {
+                  const collection = client.db("courses").collection("course_1");
+                  console.log("Database Connected");
+                //do stuff
+                    collection.insertOne( { siid: siid, club: club, clear_time: clear_time, start_time: start_time, finish_time: finish_time, control_objs: point_data} );
+
+                  client.close();
+                });
+
+
+
 
                 dataarray = [];
                 myPort.write(buf9);
