@@ -132,6 +132,7 @@ exports.datareader = function() {
                         obj.control_point = dataarray[1][i];
                         //control time
 
+
                         var control_time = 0;
                         var count = i + 1;
 
@@ -150,7 +151,8 @@ exports.datareader = function() {
                 }
 
                 console.log(point_data);
-
+                console.log(total_points);
+                /*
                 //Database Upload
                 const MongoClient = require('mongodb').MongoClient;
                 const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
@@ -164,7 +166,7 @@ exports.datareader = function() {
                     console.log("Upload Complete");
                   client.close();
                 });
-
+                */
 
 
 
