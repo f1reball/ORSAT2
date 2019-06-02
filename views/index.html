@@ -55,20 +55,20 @@
                   <form method="POST" action="/test" id="add_runner">
                            <div class="form-group">
                              <label for="first_name" class="col-form-label">First Name:</label>
-                             <input type="text" class="form-control" id="first_name">
+                             <input type="text" class="form-control" name="first_name">
                            </div>
                            <div class="form-group">
                              <label for="last_name" class="col-form-label">Last Name:</label>
-                             <input type="text" class="form-control" id="last_name">
+                             <input type="text" class="form-control" name="last_name">
                            </div>
                            <div class="form-group">
                              <label for="siid" class="col-form-label">SIID:</label>
-                             <input type="text" class="form-control" id="siid">
+                             <input type="text" class="form-control" name="siid">
                            </div>
                        </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" onclick="event.preventDefault();document.getElementById('add_runner').submit();">Save changes</button>
               </div>
             </div>
