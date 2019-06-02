@@ -17,13 +17,29 @@ exports.database_check = function() {
 
 
 
-        //literally give me the amount of stuff in the db
-        var test = collection.find({siid: "2097585"}).count()
-        .then(function(value) {
-            console.log(value);
-        });
+        //finds if the SIID is in the db
+        /// TODO: make either replace siid or add new dependent of search
+        function existance(siid){
+            var value = 0;
+            var test = collection.find({siid: siid}).count()
+            .then(function(value) {
+                console.log(value);
+                //return value;
+                if(value == 0){
+                    console.log("inserts new position");
+                    //collection.insertOne({y: "y"});
+                } else {
+                    console.log("replaces position");
+                    //collection.replaceOne({siid: siid}, {x: "x"} );
+                }
+            });
+            return value;
+        }
 
 
-      client.close();
+        var in_database = existance("2097585");
+        console.log(in_database);
+
+
     });
 };
