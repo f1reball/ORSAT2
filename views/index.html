@@ -52,7 +52,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                  <form method="POST" action="/test">
+                  <form method="POST" action="/test" id="add_runner">
                            <div class="form-group">
                              <label for="first_name" class="col-form-label">First Name:</label>
                              <input type="text" class="form-control" id="first_name">
@@ -69,7 +69,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="event.preventDefault();document.getElementById('add_runner').submit();">Save changes</button>
               </div>
             </div>
           </div>
