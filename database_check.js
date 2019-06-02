@@ -58,10 +58,9 @@ exports.master_running_add_new= function(first_name, last_name, siid) {
                   var obj = new Object();
                   obj.first_name = first_name;
                   obj.last_name = last_name;
-                  obj.siid = parseInt(siid);
+                  obj.siid = siid;
                   runner_data.push(obj);
-                  running_collection.updateOne({runner_data});
-                  //collection.insertOne({y: "y"});
+                  running_collection.insertOne({runner_data});
               } else {
                   running_collection.findOne()
                   .then(function(value) {
@@ -72,11 +71,28 @@ exports.master_running_add_new= function(first_name, last_name, siid) {
                     obj.siid = siid;
                     runner_data.push(obj);
                     running_collection.findOneAndReplace({},{runner_data});
+                    console.log("updated")
                 });
 
-                  //collection.replaceOne({siid: siid}, {x: "x"} );
               }
           });
 
   });
 };
+
+exports.get_data_from_master_db = function(){
+    const MongoClient = require('mongodb').MongoClient;
+    const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+    client.connect(err => {
+      const running_collection = client.db("courses").collection("Runners");
+      console.log("Runners Database Connected");
+
+      running_collection.findOne()
+      .then(function(value) {
+        runner_data = value.runner_data;
+        return runner_data;
+    });
+
+});
+}

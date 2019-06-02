@@ -28,8 +28,28 @@ app.post('/', urlencodedParser, function(req, res){
 })
 
 app.get('/test', function(req, res){
-    var name = 'test';
-    res.render("./index.html", {name});
+
+    const MongoClient = require('mongodb').MongoClient;
+    const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+    client.connect(err => {
+      const running_collection = client.db("courses").collection("Runners");
+      console.log("check Database Connected");
+
+      running_collection.countDocuments()
+      .then(function(value) {
+          if(value == 0){
+              res.render("./index.html");
+          } else {
+              running_collection.findOne()
+              .then(function(value) {
+            var runner_data = value.runner_data;
+            console.log(runner_data);
+            res.render("./index.html", {"runner_mass_data": runner_data});
+        });
+        }
+});
+});
 });
 
 app.post('/test', urlencodedParser, function(req, res){
@@ -37,11 +57,36 @@ app.post('/test', urlencodedParser, function(req, res){
     var last_name = req.body.last_name;
     var siid = req.body.siid;
 
-    var name = 'hello';
-
     database_upload.database_check();
     database_upload.master_running_add_new(first_name, last_name, siid);
-    res.render("./index.html", {name});
+    setTimeout(force_connection, 1000);
+    console.log("should");
+
+    function force_connection(){
+        const MongoClient = require('mongodb').MongoClient;
+        const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
+        const client = new MongoClient(uri, { useNewUrlParser: true });
+        client.connect(err => {
+          const running_collection = client.db("courses").collection("Runners");
+          console.log("check Database Connected");
+
+          running_collection.countDocuments()
+          .then(function(value){
+              if(value == 0){
+
+              } else {
+                  running_collection.findOne()
+                  .then(function(value) {
+                    var runner_data = value.runner_data;
+                    console.log(runner_data);
+                    res.render("./index.html", {"runner_mass_data": runner_data});
+                });
+          }
+
+    });
+});
+}
+
 });
 
 app.listen(3000, function(){
