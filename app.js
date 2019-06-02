@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var urlencodedParser = bodyParser.urlencoded({extended: false});
 const dataread = require('./test.js');
-
+const database_upload = require('./database_check.js');
 
 //DATABASE
 
@@ -15,6 +15,15 @@ app.get('/', function(req, res){
 });
 
 app.post('/', urlencodedParser, function(req, res){
+    dataread.datareader();
+    res.sendfile("index.html");
+})
+
+app.get('/test', function(req, res){
+    res.sendfile("index.html");
+});
+
+app.post('/test', urlencodedParser, function(req, res){
     dataread.datareader();
     res.sendfile("index.html");
 })

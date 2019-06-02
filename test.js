@@ -166,6 +166,9 @@ exports.datareader = function() {
                 }
 
                 console.log(point_data);
+
+                /// TODO: check for existing database entry with SIID number
+
                 /*
                 //Database Upload
                 const MongoClient = require('mongodb').MongoClient;
@@ -181,8 +184,6 @@ exports.datareader = function() {
                   client.close();
                 });
                 */
-
-
 
                 dataarray = [];
                 myPort.write(buf9);
@@ -204,7 +205,6 @@ exports.datareader = function() {
 
 
     }
-
 
     //lock setup
     var c1 = 0;
