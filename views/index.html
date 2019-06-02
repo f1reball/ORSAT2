@@ -35,12 +35,13 @@
 
         <!--form for testing of runner master db  upload-->
         <div class="table-responsive">
-        <table class="table table-bordered table-hover" style="width: 70%">
+        <table class="table table-bordered table-hover" style="width: 70%; text-align: center">
           <thead class="thead-light">
             <tr>
               <th scope="col">First Name</th>
               <th scope="col">Last Name</th>
               <th scope="col">SIID</th>
+              <th scope="col">Edit / Remove</th>
             </tr>
           </thead>
           <tbody>
@@ -49,6 +50,14 @@
                  <td>{{first_name}}</td>
                  <td>{{last_name}}</td>
                  <td>{{siid}}</td>
+                 <td style = "width: 30%;">
+                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#addNewRunner">
+                       Remove Runner
+                     </button>
+                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewRunner">
+                       Edit Runner
+                     </button>
+                 </td>
              </tr>
              {{/runner_mass_data}}
           </tbody>
