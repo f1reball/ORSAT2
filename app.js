@@ -25,7 +25,12 @@ app.get('/test', function(req, res){
 });
 
 app.post('/test', urlencodedParser, function(req, res){
+    var first_name = req.body.first_name;
+    var last_name = req.body.last_name;
+    var siid = req.body.siid;
+
     database_upload.database_check();
+    database_upload.master_running_add_new(first_name, last_name, siid);
     res.sendfile("index.html");
 });
 

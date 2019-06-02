@@ -1,6 +1,5 @@
 exports.database_check = function() {
 
-    console.log("works");
     const MongoClient = require('mongodb').MongoClient;
     const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
     const client = new MongoClient(uri, { useNewUrlParser: true });
@@ -18,7 +17,6 @@ exports.database_check = function() {
 
 
         //finds if the SIID is in the db
-        /// TODO: make either replace siid or add new dependent of search
         function existance(siid){
             var value = 0;
             var test = collection.find({siid: siid}).count()
@@ -35,9 +33,24 @@ exports.database_check = function() {
             return value;
         }
 
+        //collection of all students with assigned SIID
 
         existance("2097583");
 
 
     });
+};
+
+//add a new runner to the master_database
+exports.master_running_add_new= function(first_name, last_name, siid) {
+    const MongoClient = require('mongodb').MongoClient;
+    const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+    client.connect(err => {
+      const running_collection = client.db("courses").collection("Runners");
+      console.log("Runners Database Connected");
+
+      running_collection.insertOne({first_name: first_name, last_name: last_name, siid: parseInt(siid)});
+
+  });
 };
