@@ -71,7 +71,6 @@ exports.master_running_add_new= function(first_name, last_name, siid) {
                     obj.siid = siid;
                     runner_data.push(obj);
                     running_collection.findOneAndReplace({},{runner_data});
-                    console.log("updated")
                 });
 
               }

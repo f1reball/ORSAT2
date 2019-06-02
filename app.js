@@ -44,7 +44,6 @@ app.get('/test', function(req, res){
               running_collection.findOne()
               .then(function(value) {
             var runner_data = value.runner_data;
-            console.log(runner_data);
             res.render("./index.html", {"runner_mass_data": runner_data});
         });
         }
@@ -60,7 +59,6 @@ app.post('/test', urlencodedParser, function(req, res){
     database_upload.database_check();
     database_upload.master_running_add_new(first_name, last_name, siid);
     setTimeout(force_connection, 1000);
-    console.log("should");
 
     function force_connection(){
         const MongoClient = require('mongodb').MongoClient;
@@ -78,7 +76,6 @@ app.post('/test', urlencodedParser, function(req, res){
                   running_collection.findOne()
                   .then(function(value) {
                     var runner_data = value.runner_data;
-                    console.log(runner_data);
                     res.render("./index.html", {"runner_mass_data": runner_data});
                 });
           }
