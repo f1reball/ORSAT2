@@ -14,11 +14,11 @@ exports.database_check = function() {
 
         /// TODO: need to impliment a way of updating SIID for each student in system
         /// TODO: need to have a method of connecting controlID to point value if required
-        
+
 
 
         //literally give me the amount of stuff in the db
-        var test = collection.countDocuments()
+        var test = collection.find({siid: "2097585"}).count()
         .then(function(value) {
             console.log(value);
         });
