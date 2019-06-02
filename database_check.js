@@ -23,7 +23,6 @@ exports.database_check = function() {
             var value = 0;
             var test = collection.find({siid: siid}).count()
             .then(function(value) {
-                console.log(value);
                 //return value;
                 if(value == 0){
                     console.log("inserts new position");
@@ -37,8 +36,7 @@ exports.database_check = function() {
         }
 
 
-        var in_database = existance("2097585");
-        console.log(in_database);
+        existance("2097583");
 
 
     });
