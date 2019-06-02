@@ -30,7 +30,6 @@ exports.database_check = function() {
                     //collection.replaceOne({siid: siid}, {x: "x"} );
                 }
             });
-            return value;
         }
 
         //collection of all students with assigned SIID
@@ -50,7 +49,39 @@ exports.master_running_add_new= function(first_name, last_name, siid) {
       const running_collection = client.db("courses").collection("Runners");
       console.log("Runners Database Connected");
 
-      running_collection.insertOne({first_name: first_name, last_name: last_name, siid: parseInt(siid)});
+      var value = 0;
+      running_collection.countDocuments()
+      .then(function(value) {
+              //return value;
+              if(value == 0){
+                  console.log("check");
+                  var runner_data = [];
+                  var obj = new Object();
+                  obj.first_name = first_name;
+                  obj.last_name = last_name;
+                  obj.siid = parseInt(siid);
+                  runner_data.push(obj);
+                  running_collection.updateOne({runner_data});
+                  //collection.insertOne({y: "y"});
+              } else {
+                  console.log("check2");
+                  running_collection.findOne()
+                  .then(function(value) {
+                    runner_data = value.runner_data;
+                    console.log(runner_data);
+                    console.log("FORCE CHECK");
+                    var obj = new Object();
+                    obj.first_name = first_name;
+                    obj.last_name = last_name;
+                    obj.siid = siid;
+                    runner_data.push(obj);
+                    console.log(obj);
+                    running_collection.findOneAndReplace({},{runner_data});
+                });
+
+                  //collection.replaceOne({siid: siid}, {x: "x"} );
+              }
+          });
 
   });
 };
