@@ -1,5 +1,6 @@
 exports.database_check = function() {
 
+    console.log("works");
     const MongoClient = require('mongodb').MongoClient;
     const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
     const client = new MongoClient(uri, { useNewUrlParser: true });
@@ -13,4 +14,5 @@ exports.database_check = function() {
 
 
       client.close();
+    });
 };

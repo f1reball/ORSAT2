@@ -3,6 +3,7 @@ var fs = require('fs');
 var bodyParser = require('body-parser');
 var app = express();
 var urlencodedParser = bodyParser.urlencoded({extended: false});
+
 const dataread = require('./test.js');
 const database_upload = require('./database_check.js');
 
@@ -24,9 +25,9 @@ app.get('/test', function(req, res){
 });
 
 app.post('/test', urlencodedParser, function(req, res){
-    dataread.datareader();
+    database_upload.database_check();
     res.sendfile("index.html");
-})
+});
 
 app.listen(3000, function(){
     console.log("Starting Server on port 3000");
