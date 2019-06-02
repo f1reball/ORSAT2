@@ -65,19 +65,34 @@ exports.datareader = function() {
                 //BLOCK 1 DATA EXTRACTION
                 //extract SIID
 
-                var siid = '';
-                for (var i = 38; i < 45; i++){
-                    siid = siid + String.fromCharCode(dataarray[0][i]);
+                var siid = 0;
+                for (var i = 31; i < 34; i++){
+                    siid = siid + dataarray[0][i];
+                    if(i == 31 || i == 32){
+                        siid = siid * 16 * 16;
+                    }
                 }
                 console.log(siid);
 
                 //extract club
 
-                var club = ''
-                for (var i = 46; i < 58; i++){
-                    club = club + String.fromCharCode(dataarray[0][i]);
+                var first_name = ''
+                i = 38;
+                while(dataarray[0][i] != 59){
+                    first_name = first_name + String.fromCharCode(dataarray[0][i]);
+                    i++;
                 }
-                console.log(club);
+                console.log(first_name);
+
+                var last_name = ''
+                i++;
+                while(dataarray[0][i] != 59){
+                    last_name = last_name + String.fromCharCode(dataarray[0][i]);
+                    i++;
+                }
+                console.log(last_name);
+
+
 
                 //find clear time
                 if(dataarray[0][15] == 1 || dataarray[0][15] == 3){
@@ -151,7 +166,6 @@ exports.datareader = function() {
                 }
 
                 console.log(point_data);
-                console.log(total_points);
                 /*
                 //Database Upload
                 const MongoClient = require('mongodb').MongoClient;
@@ -161,7 +175,7 @@ exports.datareader = function() {
                   const collection = client.db("courses").collection("course_1");
                   console.log("Database Connected");
                 //do stuff
-                    collection.insertOne( { siid: siid, club: club, clear_time: clear_time, start_time: start_time, finish_time: finish_time, control_objs: point_data} );
+                    collection.insertOne( { siid: siid, first_name: first_name, last_name: last_name, clear_time: clear_time, start_time: start_time, finish_time: finish_time, control_objs: point_data} );
                     collection.insertOne( { test: "x"} );
                     console.log("Upload Complete");
                   client.close();
