@@ -56,7 +56,10 @@ app.post('/test', urlencodedParser, function(req, res){
     var last_name = req.body.last_name;
     var siid = req.body.siid;
 
-    console.log(req.body.foo);
+    if(req.body.foo == "fetch_cookie"){
+        var x = req.headers.cookie;
+        console.log(x);
+    }
 
     //check if the data is being removed or added with the foo command
 
