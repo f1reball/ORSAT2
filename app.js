@@ -56,6 +56,10 @@ app.post('/test', urlencodedParser, function(req, res){
     var last_name = req.body.last_name;
     var siid = req.body.siid;
 
+    console.log(req.body.foo);
+
+    //check if the data is being removed or added with the foo command
+
     database_upload.database_check();
     database_upload.master_running_add_new(first_name, last_name, siid);
     setTimeout(force_connection, 1000);

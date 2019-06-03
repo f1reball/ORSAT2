@@ -51,10 +51,18 @@
                  <td>{{last_name}}</td>
                  <td>{{siid}}</td>
                  <td style = "width: 30%;">
-                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewRunner" id="edit + {{siid}}">
+                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewRunner">
                        Edit Runner
                      </button>
-                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#remove_runner">
+                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#remove_person" id={{siid}} onClick="reply_click(this.id)">
+
+                         <script>
+                         function reply_click(clicked_id) {
+                             document.cookie = "cookiename=" + clicked_id;
+                             alert(clicked_id);
+                         }
+                         </script>
+
                        Remove Runner
                      </button>
                  </td>
@@ -71,8 +79,11 @@
           Add New Runner
         </button>
 
+
+
+
         <!-- Modal -->
-        <div class="modal fade" id="remove_runner" tabindex="-1" role="dialog" aria-labelledby="remove_runner" aria-hidden="true">
+        <div class="modal fade" id="remove_person" tabindex="-1" role="dialog" aria-labelledby="remove_person" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -82,20 +93,22 @@
                 </button>
               </div>
               <div class="modal-body">
-                  <form method="POST" action="/test" id="remove_runner">
                   <div class="form-group">
                     <label for="first_name" class="col-form-label">Are you sure you want to remove this runner</label>
-                </form>
                   </div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" onclick="event.preventDefault();document.getElementById('remove_runner').submit();">Remove Runner</button>
+
+                <form action="/test" method="POST">
+
+                <button type="submit" id="id_scanner" class="btn btn-danger" name="foo" value="fetch_cookie">Remove Runner</button>
+
+                </form>
               </div>
             </div>
           </div>
         </div>
-
 
         <!-- Modal -->
         <div class="modal fade" id="addNewRunner" tabindex="-1" role="dialog" aria-labelledby="addNewRunner" aria-hidden="true">
