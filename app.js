@@ -57,15 +57,18 @@ app.post('/test', urlencodedParser, function(req, res){
     var siid = req.body.siid;
 
     if(req.body.foo == "fetch_cookie"){
-        var x = req.headers.cookie;
-        console.log(x);
-    }
+        var cookiedata = req.headers.cookie;
+        cookiedata = cookiedata.split("=").pop();
+        console.log(cookiedata);
+        setTimeout(force_connection, 1000);
+    } else {
 
     //check if the data is being removed or added with the foo command
 
     database_upload.database_check();
     database_upload.master_running_add_new(first_name, last_name, siid);
     setTimeout(force_connection, 1000);
+    }
 
     function force_connection(){
         const MongoClient = require('mongodb').MongoClient;
