@@ -40,13 +40,39 @@ exports.database_check = function() {
     });
 };
 
+exports.master_running_remove = function(siid) {
+
+    const MongoClient = require('mongodb').MongoClient;
+    const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+    client.connect(err => {
+      const running_collection = client.db("Master_Runners").collection("Runners");
+      console.log("Runners Database Connected");
+
+      //test if the doc is 1 length or more
+      var value;
+      running_collection.findOne()
+      .then(function(value) {
+              runner_data = value.runner_data;
+              console.log(runner_data);
+              //change to length of array not count of documents
+              console.log("teses");
+              running_collection.findOneAndDelete({});
+      });
+      //running_collection.findOneAndDelete({siid: siid.toString()});
+      console.log("worked");
+});
+};
+
+
+
 //add a new runner to the master_database
 exports.master_running_add_new= function(first_name, last_name, siid) {
     const MongoClient = require('mongodb').MongoClient;
     const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
     const client = new MongoClient(uri, { useNewUrlParser: true });
     client.connect(err => {
-      const running_collection = client.db("courses").collection("Runners");
+      const running_collection = client.db("Master_Runners").collection("Runners");
       console.log("Runners Database Connected");
 
       var value = 0;
@@ -84,7 +110,7 @@ exports.get_data_from_master_db = function(){
     const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
     const client = new MongoClient(uri, { useNewUrlParser: true });
     client.connect(err => {
-      const running_collection = client.db("courses").collection("Runners");
+      const running_collection = client.db("Master_Runners").collection("Runners");
       console.log("Runners Database Connected");
 
       running_collection.findOne()

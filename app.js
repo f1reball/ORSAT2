@@ -33,7 +33,7 @@ app.get('/test', function(req, res){
     const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
     const client = new MongoClient(uri, { useNewUrlParser: true });
     client.connect(err => {
-      const running_collection = client.db("courses").collection("Runners");
+      const running_collection = client.db("Master_Runners").collection("Runners");
       console.log("check Database Connected");
 
       running_collection.countDocuments()
@@ -60,7 +60,11 @@ app.post('/test', urlencodedParser, function(req, res){
         var cookiedata = req.headers.cookie;
         cookiedata = cookiedata.split("=").pop();
         console.log(cookiedata);
+        database_upload.master_running_remove(cookiedata);
+
+        console.log("remoded value");
         setTimeout(force_connection, 1000);
+
     } else {
 
     //check if the data is being removed or added with the foo command
@@ -75,13 +79,13 @@ app.post('/test', urlencodedParser, function(req, res){
         const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
         const client = new MongoClient(uri, { useNewUrlParser: true });
         client.connect(err => {
-          const running_collection = client.db("courses").collection("Runners");
+          const running_collection = client.db("Master_Runners").collection("Runners");
           console.log("check Database Connected");
 
           running_collection.countDocuments()
           .then(function(value){
               if(value == 0){
-
+                res.render("./index.html");
               } else {
                   running_collection.findOne()
                   .then(function(value) {
