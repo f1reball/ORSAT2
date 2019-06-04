@@ -56,18 +56,32 @@ app.post('/test', urlencodedParser, function(req, res){
     var last_name = req.body.last_name;
     var siid = req.body.siid;
 
+    console.log(req.body.edit);
+
     if(req.body.foo == "fetch_cookie"){
         var cookiedata = req.headers.cookie;
         cookiedata = cookiedata.split("=").pop();
+        if(cookiedata[0] == "r"){
+            cookiedata = cookiedata.substring(1);
+            cookiedata = cookiedata.split("-")[2]
+            console.log("THIS" + cookiedata);
+            database_upload.master_running_remove(cookiedata);
+        }
         console.log(cookiedata);
-        database_upload.master_running_remove(cookiedata);
 
-        console.log("remoded value");
         setTimeout(force_connection, 1000);
+
+
+        //rn the file removes the parent if we try ti delete an edited file.
+        //we need to get the edited file data transfered to node asap
+
+    } else if(req.body.edit == "edit_data"){
+        //editing the data
+    console.log("works");
+    setTimeout(force_connection, 1000);
 
     } else {
 
-    //check if the data is being removed or added with the foo command
 
     database_upload.database_check();
     database_upload.master_running_add_new(first_name, last_name, siid);

@@ -51,16 +51,33 @@
                  <td>{{last_name}}</td>
                  <td>{{siid}}</td>
                  <td style = "width: 30%;">
-                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewRunner">
-                       Edit Runner
-                     </button>
-                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#remove_person" id={{siid}} onClick="reply_click(this.id)">
-
+                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editRunner" id={{first_name}}-{{last_name}}-{{siid}} onClick="reply_click_edit(this.id)">
                          <script>
-                         function reply_click(clicked_id) {
-                             document.cookie = "cookie=" + clicked_id;
+                         function reply_click_edit(clicked_id) {
+                             first_name = clicked_id.split("-")[0];
+                             last_name = clicked_id.split("-")[1];
+                             siid = clicked_id.split("-")[2];
+                             $(".modal-body #first_name").val(first_name);
+                             $(".modal-body #last_name").val(last_name);
+                             $(".modal-body #siid").val(siid);
+                         }
+
+                         </script>
+                         <script>
+                         function reply_click_ediforce(clicked_id) {
+                             document.cookie = "cookie=e" + clicked_id;
                          }
                          </script>
+                       Edit Runner
+                     </button>
+                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#remove_person" id={{first_name}}-{{last_name}}-{{siid}} onClick="reply_click_rem(this.id)">
+
+                         <script>
+                         function reply_click_rem(clicked_id) {
+                             document.cookie = "cookie=r" + clicked_id;
+                         }
+                         </script>
+
 
                        Remove Runner
                      </button>
@@ -77,6 +94,41 @@
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addNewRunner">
           Add New Runner
         </button>
+
+
+        <div class="modal fade" id="editRunner" tabindex="-1" role="dialog" aria-labelledby="editRunner" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Runner</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                  <form method="POST" action="/test" id="edit_runner">
+                           <div class="form-group">
+                             <label for="first_name" class="col-form-label">First Name:</label>
+                             <input type="text" class="form-control" id="first_name" name="first_name" value="">
+                           </div>
+                           <div class="form-group">
+                             <label for="last_name" class="col-form-label">Last Name:</label>
+                             <input type="text" class="form-control" id="last_name" name="last_name" value="">
+                           </div>
+                           <div class="form-group">
+                             <label for="siid" class="col-form-label">SIID:</label>
+                             <input type="text" class="form-control" id="siid" name="siid" value="">
+                           </div>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary" name="edit" value="edit_data">Save changes</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
 

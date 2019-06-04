@@ -54,10 +54,18 @@ exports.master_running_remove = function(siid) {
       running_collection.findOne()
       .then(function(value) {
               runner_data = value.runner_data;
+              if(runner_data.length == 1){
+                  running_collection.findOneAndDelete({});
+              } else {
+                  //remove part in array then replace
+                  //// TODO: FIX 2 DELETE 1 ISSUE
+                  //problem with this section
+                  runner_data = runner_data.splice(runner_data.indexOf(siid));
+                  running_collection.findOneAndReplace({}, {runner_data});
+              }
               console.log(runner_data);
               //change to length of array not count of documents
               console.log("teses");
-              running_collection.findOneAndDelete({});
       });
       //running_collection.findOneAndDelete({siid: siid.toString()});
       console.log("worked");
@@ -82,9 +90,9 @@ exports.master_running_add_new= function(first_name, last_name, siid) {
               if(value == 0){
                   var runner_data = [];
                   var obj = new Object();
-                  obj.first_name = first_name;
-                  obj.last_name = last_name;
-                  obj.siid = siid;
+                  obj.first_name = first_name.trim();
+                  obj.last_name = last_name.trim();
+                  obj.siid = siid.trim();
                   runner_data.push(obj);
                   running_collection.insertOne({runner_data});
               } else {
@@ -92,9 +100,9 @@ exports.master_running_add_new= function(first_name, last_name, siid) {
                   .then(function(value) {
                     runner_data = value.runner_data;
                     var obj = new Object();
-                    obj.first_name = first_name;
-                    obj.last_name = last_name;
-                    obj.siid = siid;
+                    obj.first_name = first_name.trim();
+                    obj.last_name = last_name.trim();
+                    obj.siid = siid.trim();
                     runner_data.push(obj);
                     running_collection.findOneAndReplace({},{runner_data});
                 });
