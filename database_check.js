@@ -58,20 +58,22 @@ exports.master_running_remove = function(siid) {
                   running_collection.findOneAndDelete({});
               } else {
                   //remove part in array then replace
-                  //// TODO: FIX 2 DELETE 1 ISSUE
 
                   //problem with this section
-                  //console.log(runner_data.);
+                  var point = 0;
+                  for (var i = 0; i < runner_data.length; i++) {
+                    if(runner_data[i].siid == siid){
+                        point = i;
+                    }
+                  }
 
+                  runner_data.splice(point, 1);
                   //runner_data = runner_data.splice(runner_data.obj.indexOf(siid), 1);
                   running_collection.findOneAndReplace({}, {runner_data});
               }
-              console.log(runner_data);
               //change to length of array not count of documents
-              console.log("teses");
       });
       //running_collection.findOneAndDelete({siid: siid.toString()});
-      console.log("worked");
 });
 };
 
