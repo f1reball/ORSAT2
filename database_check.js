@@ -59,8 +59,11 @@ exports.master_running_remove = function(siid) {
               } else {
                   //remove part in array then replace
                   //// TODO: FIX 2 DELETE 1 ISSUE
+
                   //problem with this section
-                  runner_data = runner_data.splice(runner_data.indexOf(siid));
+                  //console.log(runner_data.);
+
+                  //runner_data = runner_data.splice(runner_data.obj.indexOf(siid), 1);
                   running_collection.findOneAndReplace({}, {runner_data});
               }
               console.log(runner_data);
