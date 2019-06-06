@@ -77,8 +77,15 @@ app.post('/test', urlencodedParser, function(req, res){
         //we need to get the edited file data transfered to node asap
 
     } else if(req.body.edit.substring(0, 4) == "edit"){
+        console.log(first_name);
+        console.log(last_name);
+        console.log(siid);
 
-        
+        var original = req.body.edit.split('-')[1];
+        console.log(original);
+
+        database_upload.master_running_replace(original, first_name, last_name, siid);
+
         //editing the data
     console.log("works");
     setTimeout(force_connection, 1000);

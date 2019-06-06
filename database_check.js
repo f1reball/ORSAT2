@@ -40,6 +40,42 @@ exports.database_check = function() {
     });
 };
 
+exports.master_running_replace = function(original, first_name, last_name, siid){
+    const MongoClient = require('mongodb').MongoClient;
+    const uri = "mongodb+srv://knox:knox@cluster0-hpibm.mongodb.net/test?retryWrites=true";
+    const client = new MongoClient(uri, { useNewUrlParser: true });
+    client.connect(err => {
+      const running_collection = client.db("Master_Runners").collection("Runners");
+      console.log("Runners Database Connected");
+
+      var value;
+      running_collection.findOne()
+      .then(function(value) {
+              runner_data = value.runner_data;
+              if(runner_data.length == 1){
+                  running_collection.findOneAndDelete({});
+              } else {
+                  //remove part in array then replace
+
+                  //problem with this section
+                  var point = 0;
+                  for (var i = 0; i < runner_data.length; i++) {
+                    if(runner_data[i].siid == original){
+                        point = i;
+                    }
+                  }
+
+
+                  runner_data[point].first_name = first_name;
+                  runner_data[point].last_name = last_name;
+                  runner_data[point].siid = siid;
+
+                  running_collection.findOneAndReplace({}, {runner_data});
+              }
+          });
+});
+};
+
 exports.master_running_remove = function(siid) {
 
     const MongoClient = require('mongodb').MongoClient;
