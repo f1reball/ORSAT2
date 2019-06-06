@@ -58,6 +58,7 @@ app.post('/test', urlencodedParser, function(req, res){
 
     console.log(req.body.edit);
 
+
     if(req.body.foo == "fetch_cookie"){
         var cookiedata = req.headers.cookie;
         cookiedata = cookiedata.split("=").pop();
@@ -75,7 +76,9 @@ app.post('/test', urlencodedParser, function(req, res){
         //rn the file removes the parent if we try ti delete an edited file.
         //we need to get the edited file data transfered to node asap
 
-    } else if(req.body.edit == "edit_data"){
+    } else if(req.body.edit.substring(0, 4) == "edit"){
+
+        
         //editing the data
     console.log("works");
     setTimeout(force_connection, 1000);
