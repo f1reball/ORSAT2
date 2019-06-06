@@ -56,19 +56,14 @@ app.post('/test', urlencodedParser, function(req, res){
     var last_name = req.body.last_name;
     var siid = req.body.siid;
 
-    console.log(req.body.edit);
-
-
     if(req.body.foo == "fetch_cookie"){
         var cookiedata = req.headers.cookie;
         cookiedata = cookiedata.split("=").pop();
         if(cookiedata[0] == "r"){
             cookiedata = cookiedata.substring(1);
             cookiedata = cookiedata.split("-")[2]
-            console.log("THIS" + cookiedata);
             database_upload.master_running_remove(cookiedata);
         }
-        console.log(cookiedata);
 
         setTimeout(force_connection, 1000);
 
@@ -78,17 +73,12 @@ app.post('/test', urlencodedParser, function(req, res){
 
     } else if(req.body.edit != undefined){
         if(req.body.edit.substring(0, 4) == "edit"){
-        console.log(first_name);
-        console.log(last_name);
-        console.log(siid);
 
         var original = req.body.edit.split('-')[1];
-        console.log(original);
 
         database_upload.master_running_replace(original, first_name, last_name, siid);
 
         //editing the data
-    console.log("works");
     setTimeout(force_connection, 1000);
     }
     } else {
