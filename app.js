@@ -76,7 +76,8 @@ app.post('/test', urlencodedParser, function(req, res){
         //rn the file removes the parent if we try ti delete an edited file.
         //we need to get the edited file data transfered to node asap
 
-    } else if(req.body.edit.substring(0, 4) == "edit"){
+    } else if(req.body.edit != undefined){
+        if(req.body.edit.substring(0, 4) == "edit"){
         console.log(first_name);
         console.log(last_name);
         console.log(siid);
@@ -89,7 +90,7 @@ app.post('/test', urlencodedParser, function(req, res){
         //editing the data
     console.log("works");
     setTimeout(force_connection, 1000);
-
+    }
     } else {
 
 
